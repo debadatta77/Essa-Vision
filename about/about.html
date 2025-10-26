@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ESSA VISION</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #faf8f3;
+            color: #333;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: static;
+            display: block;
+            padding: 12px 16px;
+            background: transparent;
+            width: 100%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            width: calc(100% - 32px);
+            margin: 12px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(180deg, #fffefa 0%, #f9fbf6 100%);
+            border-radius: 40px;
+            padding: 10px 18px;
+            box-shadow: 0 12px 30px rgba(27, 45, 53, 0.08);
+            border: 1px solid rgba(12, 24, 30, 0.06);
+            position: relative;
+        }
+
+        .nav-brand {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f4b53;
+            background: #fffde3;
+            padding: 10px 18px;
+            border-radius: 999px;
+            min-width: 180px;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            margin: 0;
+            padding: 8px 6px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: #114b52;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            padding: 8px 12px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            transition: all .15s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(16, 82, 88, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .nav-links a.active {
+            background: linear-gradient(90deg, rgba(74, 124, 140, 0.12), rgba(231, 76, 60, 0.04));
+            color: #114b52;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2.5px;
+            background: #4a7c8c;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+                padding: 12px 15px;
+            }
+
+            .nav-brand {
+                min-width: auto;
+                font-size: 13px;
+                padding: 8px 14px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                margin-left: auto;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 75%;
+                background: linear-gradient(180deg, #faf8f3 0%, #f5f0eb 100%);
+                flex-direction: column;
+                padding: 80px 30px 30px 30px;
+                gap: 20px;
+                transition: right 0.3s ease;
+                z-index: 1000;
+                box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+                margin-left: 0;
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                padding: 14px 16px;
+                font-size: 15px;
+                border-radius: 8px;
+                display: block;
+                border-bottom: 1px solid #e0d5c7;
+            }
+
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* ===== PAGE TITLE ===== */
+        .page-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #4a7c8c;
+            margin: 40px 20px 60px 20px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 50px;
+            padding: 30px 25px;
+            background-color: #fff;
+            border-radius: 12px;
+            border: 1px solid #e0d5c7;
+        }
+
+        .section.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .section.reverse .section-content {
+            order: 2;
+        }
+
+        .section.reverse .section-image {
+            order: 1;
+        }
+
+        .section-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+
+        .section-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a7c8c;
+            letter-spacing: 0.5px;
+        }
+
+        .section-description {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #666;
+        }
+
+        .section-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+            color: #4a7c8c;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* ===== CONTACT INFO SECTION ===== */
+        .contact-info-section {
+            background-color: #fff;
+            border-radius: 12px;
+            border: 1px solid #e0d5c7;
+            padding: 40px 30px;
+            margin-bottom: 80px;
+        }
+
+        .contact-info-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #4a7c8c;
+            margin-bottom: 40px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #fffde3 0%, #f9fbf6 100%);
+            border-radius: 12px;
+            border: 1px solid #e0d5c7;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(27, 45, 53, 0.12);
+        }
+
+        .contact-icon {
+            font-size: 32px;
+            color: #0f4b53;
+            margin-bottom: 16px;
+        }
+
+        .contact-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a7c8c;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-value {
+            font-size: 16px;
+            color: #114b52;
+            font-weight: 600;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .contact-value:hover {
+            color: #0f4b53;
+        }
+
+        /* ===== FORM SECTION ===== */
+        .form-section {
+            background-color: #fff;
+            border-radius: 12px;
+            border: 1px solid #e0d5c7;
+            padding: 40px 30px;
+            margin-bottom: 80px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #4a7c8c;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a7c8c;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d0c5b9;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            transition: all 0.3s ease;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4a7c8c;
+            box-shadow: 0 0 0 3px rgba(74, 124, 140, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #4a7c8c 0%, #0f4b53 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(74, 124, 140, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #faf8f3;
+            border-top: 1px solid #e0d5c7;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-top {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f4b53;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .footer-credit {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .footer-credit a {
+            color: #0f4b53;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-credit a:hover {
+            color: #114b52;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid #d0c5b9;
+            border-radius: 6px;
+            color: #4a7c8c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .social-link:hover {
+            background-color: #0f4b53;
+            color: #fff;
+            border-color: #0f4b53;
+            transform: translateY(-2px);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background-color: #e0d5c7;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: #0f4b53;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #114b52;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 28px;
+                margin: 30px 16px 40px 16px;
+            }
+
+            .section {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 20px 16px;
+                margin-bottom: 40px;
+            }
+
+            .section.reverse {
+                grid-template-columns: 1fr;
+            }
+
+            .section.reverse .section-content,
+            .section.reverse .section-image {
+                order: unset;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .contact-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand"><span>ESSA VISION</span></div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="../product/product.html">PRODUCT</a></li>
+                <li><a href="../services/services.html">SERVICE</a></li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" title="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="page-title">About ESSA VISION</div>
+
+
+
+    <!-- CONTACT INFO SECTION -->
+    <div class="container">
+        <div class="contact-info-section">
+            <h2 class="contact-info-title">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-label">Email</div>
+                    <a href="mailto:essavisioninfo@gmail.com" class="contact-value">essavisioninfo@gmail.com</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-label">Phone</div>
+                    <a href="#" class="contact-value">+91 79780 92525</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-label">WhatsApp</div>
+                    <a href="https://wa.me/917978092525" class="contact-value" target="_blank">+91 79780 92525</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT FORM SECTION -->
+    <div class="container">
+        <div class="form-section">
+            <h2 class="form-title">Send Us a Message</h2>
+            <div class="form-container">
+                <div id="formMessage" class="form-message"></div>
+
+                <!-- Hidden iframe for form submission -->
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+                    onload="if(window.formSubmitted) formSubmitSuccess();"></iframe>
+
+                <form id="contactForm"
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSfSmA-2pNfEhke4cI0YW_XRCJdyjxTYMNY5LHKPKo6ymjaRig/formResponse"
+                    method="POST" target="hidden_iframe">
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" name="entry.1060263731" id="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" name="entry.1988697741" id="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" name="entry.1514410568" id="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" name="entry.1833665860" id="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea name="entry.2089360539" id="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- <div class="section"> -->
+        <!-- <div class="section-image">
+                <img src="../resources/service-list.jpg" alt="ESSA VISION">
+            </div> -->
+        <!-- <div class="section-content">
+                <h2 class="section-title">OUR SENSORS AND SOLUTIONS</h2>
+                <p class="section-description">
+                    We offer advanced surveillance and security systems powered by ESSA VISION technology. Our
+                    electronic security solutions provide comprehensive monitoring with intelligent detection algorithms
+                    designed for maximum protection and peace of mind.
+                </p>
+                <div class="section-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">DOOR SENSOR</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">SHUTTER SENSOR</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">MOTION SENSOR </span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">VIBRATION SENSOR</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">CROSS BIM SENSOR</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">PANIK SENSOR</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">WIFI SIREN</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">SPY CAMERA</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">SMART DOOR LOCK</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">HD DOOR BELL</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">ELETRO MAGNETIC LOCK</span>
+                    </div>
+                </div>
+            </div> -->
+        <!-- </div> -->
+        <!-- Section 1: ESSA Vision -->
+        <div class="section">
+            <div class="section-image">
+                <img src="../resources/logo.jpg" alt="ESSA Vision">
+            </div>
+            <div class="section-content">
+                <h2 class="section-title">ESSA VISION - Electronic Security</h2>
+                <p class="section-description">
+                    Advanced surveillance and security systems powered by ESSA VISION technology. Our electronic
+                    security solutions provide comprehensive monitoring with intelligent detection algorithms
+                    designed
+                    for maximum protection and peace of mind.
+                </p>
+                <div class="section-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">AI-powered motion and intrusion detection</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">24/7 monitoring with cloud backup</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">High-definition video recording</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Instant alerts and emergency response</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Lighting Automation -->
+        <div class="section reverse">
+            <div class="section-image">
+                <img src="../resources/ser2.jpg" alt="Lighting Automation">
+            </div>
+            <div class="section-content">
+                <h2 class="section-title">Smart Lighting Automation</h2>
+                <p class="section-description">
+                    Experience the future of home automation with our intelligent lighting solutions. Create custom
+                    scenes through the Smart Life APP and automate your lights to turn on automatically when you
+                    open
+                    the door or arrive home.
+                </p>
+                <div class="section-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Automated scheduling and scene creation</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Voice control compatibility with major platforms</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Energy-efficient LED technology</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Remote access from anywhere</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Smart Door Sensors -->
+        <div class="section">
+            <div class="section-image">
+                <img src="../resources/ser3.jpg" alt="Door Sensors">
+            </div>
+            <div class="section-content">
+                <h2 class="section-title">Easy Installation, Maximum Security</h2>
+                <p class="section-description">
+                    Our stick-and-use door and window sensors offer hassle-free installation without damaging your
+                    home.
+                    Simply attach them to doors, windows, or drawers, and start monitoring instantly. Perfect for
+                    renters and homeowners alike.
+                </p>
+                <div class="section-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Adhesive installation - no drilling required</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Works on various surfaces and materials</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Real-time alerts on your smartphone</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Long battery life up to 2 years</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">ESSA VISION</div>
+                <p class="footer-tagline">Secure & smart solutions for home and business.</p>
+                <p class="footer-credit">Website by <a
+                        href="https://www.linkedin.com/in/debadatta-parida-4430a5276?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Debadatta</a>
+                    & <a
+                        href="https://www.linkedin.com/in/priyansu-sekhar-malana-9186b12a9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Priyansu</a>
+                </p>
+
+                <div class="social-links">
+                    <a href="mailto:essavisioninfo@gmail.com" class="social-link" title="Email">📧</a>
+                    <a href="https://wa.me/message/ZMBMBZANXCVLJ1" class="social-link" title="WhatsApp">💬</a>
+                    <a href="https://www.facebook.com/profile.php?id=61582689723146&mibextid=ZbWKwL" class="social-link"
+                        title="Facebook">📘</a>
+                    <a href="https://www.instagram.com/essavisioninf?igsh=MWJzcmk4dXRibmxzdg==" class="social-link"
+                        title="Instagram">📷</a>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2025 ESSA VISION. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variable to track form submission
+        window.formSubmitted = false;
+
+        // Menu toggle functionality
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Form submission handling
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', function (e) {
+            // Don't prevent default - let form submit naturally
+            window.formSubmitted = true;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+        });
+
+        function formSubmitSuccess() {
+            if (!window.formSubmitted) return;
+
+            setTimeout(() => {
+                formMessage.textContent = '✓ Message sent successfully! We will get back to you soon.';
+                formMessage.classList.remove('error');
+                formMessage.classList.add('success');
+
+                contactForm.reset();
+                window.formSubmitted = false;
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
+
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }, 500);
+        }
+    </script>
+</body>
+
+</html>

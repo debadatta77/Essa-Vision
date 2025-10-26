@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TechNewGen - Camera & Sensor Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #faf8f3;
+            color: #333;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: static;
+            display: block;
+            padding: 12px 16px;
+            background: transparent;
+            width: 100%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            width: calc(100% - 32px);
+            margin: 12px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(180deg, #fffefa 0%, #f9fbf6 100%);
+            border-radius: 40px;
+            padding: 10px 18px;
+            box-shadow: 0 12px 30px rgba(27, 45, 53, 0.08);
+            border: 1px solid rgba(12, 24, 30, 0.06);
+            position: relative;
+        }
+
+        .nav-brand {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0f4b53;
+            background: #fffde3;
+            padding: 10px 18px;
+            border-radius: 999px;
+            min-width: 180px;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            margin: 0;
+            padding: 8px 6px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .nav-links a {
+            color: #114b52;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            padding: 8px 12px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            transition: all .15s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(16, 82, 88, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .nav-links a.active {
+            background: linear-gradient(90deg, rgba(74, 124, 140, 0.12), rgba(231, 76, 60, 0.04));
+            color: #114b52;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2.5px;
+            background: #4a7c8c;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+                padding: 12px 15px;
+            }
+
+            .nav-brand {
+                min-width: auto;
+                font-size: 13px;
+                padding: 8px 14px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                margin-left: auto;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 75%;
+                background: linear-gradient(180deg, #faf8f3 0%, #f5f0eb 100%);
+                flex-direction: column;
+                padding: 80px 30px 30px 30px;
+                gap: 20px;
+                transition: right 0.3s ease;
+                z-index: 1000;
+                box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+                margin-left: 0;
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                padding: 14px 16px;
+                font-size: 15px;
+                border-radius: 8px;
+                display: block;
+                border-bottom: 1px solid #e0d5c7;
+            }
+
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* ===== SEARCH ===== */
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            font-size: 16px;
+            border: 1px solid #d0c5b9;
+            border-radius: 6px;
+            background-color: #fff;
+            color: #333;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #4a7c8c;
+            box-shadow: 0 0 0 3px rgba(74, 124, 140, 0.1);
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            font-size: 18px;
+            color: #999;
+            pointer-events: none;
+        }
+
+        /* ===== PRODUCTS ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #e0d5c7;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background-color: #f0f0f0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            background-color: #d3d3d3;
+            border-radius: 6px;
+            object-fit: contain;
+            padding: 10px;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .wishlist-btn:hover {
+            color: #e74c3c;
+            background-color: #fff;
+            transform: scale(1.1);
+        }
+
+        .wishlist-btn.active {
+            color: #e74c3c;
+        }
+
+        .product-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4a7c8c;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #666;
+            flex-grow: 1;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #4a7c8c;
+        }
+
+        .product-price-original {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+
+        .rating {
+            display: flex;
+            gap: 2px;
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        .rating .star {
+            color: #ffc107;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-size: 16px;
+            grid-column: 1 / -1;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #faf8f3;
+            border-top: 1px solid #e0d5c7;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-top {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f4b53;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .footer-credit {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .footer-credit a {
+            color: #0f4b53;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-credit a:hover {
+            color: #114b52;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid #d0c5b9;
+            border-radius: 6px;
+            color: #4a7c8c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .social-link:hover {
+            background-color: #0f4b53;
+            color: #fff;
+            border-color: #0f4b53;
+            transform: translateY(-2px);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background-color: #e0d5c7;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: #0f4b53;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #114b52;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        /* Tablet */
+        @media (min-width: 769px) {
+            .search-container {
+                padding: 30px;
+            }
+
+            .search-box {
+                padding: 14px 18px 14px 45px;
+                font-size: 16px;
+            }
+
+            .search-icon {
+                left: 14px;
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 50px 30px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 28px;
+            }
+
+            .product-title {
+                font-size: 17px;
+            }
+
+            .product-description {
+                font-size: 14px;
+            }
+
+            .product-price {
+                font-size: 20px;
+            }
+
+            footer {
+                padding: 40px 30px;
+            }
+
+            .footer-brand {
+                font-size: 26px;
+            }
+
+            .footer-tagline {
+                font-size: 14px;
+            }
+
+            .social-link {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .search-container {
+                padding: 40px;
+            }
+
+            .container {
+                padding: 60px 40px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 32px;
+            }
+
+            .product-image-container {
+                height: 260px;
+            }
+
+            .product-card {
+                padding: 24px;
+            }
+
+            .product-title {
+                font-size: 18px;
+            }
+
+            .product-description {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            .product-price {
+                font-size: 22px;
+            }
+
+            footer {
+                padding: 50px 40px;
+            }
+
+            .footer-brand {
+                font-size: 28px;
+            }
+
+            .footer-tagline {
+                font-size: 15px;
+            }
+
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Mobile - Tablet */
+        @media (max-width: 768px) {
+            .search-container {
+                padding: 16px;
+            }
+
+            .container {
+                padding: 24px 16px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .product-card {
+                padding: 12px;
+            }
+
+            .product-image-container {
+                height: 180px;
+                margin-bottom: 12px;
+            }
+
+            .product-title {
+                font-size: 14px;
+            }
+
+            .product-description {
+                font-size: 12px;
+            }
+
+            .product-price {
+                font-size: 16px;
+            }
+
+            .wishlist-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+
+            footer {
+                padding: 24px 16px;
+                margin-top: 40px;
+            }
+
+            .footer-brand {
+                font-size: 20px;
+            }
+
+            .footer-tagline {
+                font-size: 12px;
+            }
+
+            .footer-credit {
+                font-size: 11px;
+            }
+
+            .social-link {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-links {
+                gap: 15px;
+                width: 100%;
+            }
+
+            .footer-copyright {
+                font-size: 11px;
+            }
+
+            .footer-links a {
+                font-size: 11px;
+            }
+        }
+
+        /* Extra small - Phone */
+        @media (max-width: 480px) {
+            .search-container {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 16px 12px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .product-card {
+                padding: 12px;
+            }
+
+            .product-image-container {
+                height: 200px;
+                margin-bottom: 12px;
+            }
+
+            .product-title {
+                font-size: 14px;
+            }
+
+            .product-description {
+                font-size: 12px;
+            }
+
+            .product-price {
+                font-size: 16px;
+            }
+
+            .wishlist-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+
+            footer {
+                padding: 20px 12px;
+            }
+
+            .footer-brand {
+                font-size: 18px;
+            }
+
+            .footer-tagline {
+                font-size: 11px;
+            }
+
+            .social-link {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand"><span>ESSA VISION</span></div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">HOME</a></li>
+                <li><a href="product.html" class="active">PRODUCT</a></li>
+                <li><a href="../services/services.html">SERVICE</a></li>
+                <li><a href="../about/about.html">CONTACT</a></li>
+                <!-- <li><a href="../about/about.html">ABOUT</a></li> -->
+            </ul>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" title="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- SEARCH -->
+    <div class="search-container">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-box" id="searchInput" placeholder="Search products...">
+        </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="container">
+        <div class="products-grid" id="productsGrid"></div>
+        <div id="noResults" class="no-results" style="display: none;">
+            No products found. Try a different search.
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">ESSA VISION</div>
+                <p class="footer-tagline">Secure & smart solutions for home and business.</p>
+                <p class="footer-credit">Website by <a
+                        href="https://www.linkedin.com/in/debadatta-parida-4430a5276?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Debadatta</a>
+                    & <a
+                        href="https://www.linkedin.com/in/priyansu-sekhar-malana-9186b12a9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Priyansu</a>
+                </p>
+
+                <div class="social-links">
+                    <a href="mailto:essavisioninfo@gmail.com" class="social-link" title="Email">📧</a>
+                    <a href="https://wa.me/message/ZMBMBZANXCVLJ1" class="social-link" title="WhatsApp">💬</a>
+                    <a href="https://www.facebook.com/profile.php?id=61582689723146&mibextid=ZbWKwL" class="social-link"
+                        title="Facebook">📘</a>
+                    <a href="https://www.instagram.com/essavisioninf?igsh=MWJzcmk4dXRibmxzdg==" class="social-link"
+                        title="Instagram">📷</a>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2025 ESSA VISION. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: 'GSM With Security Alarm System Full Kit',
+                category: 'security',
+                description: 'Comprehensive GSM alarm system with sensors and remote control.',
+                price: '₹ 13,000.00',
+                originalPrice: '₹ 17,000.00',
+                rating: 5,
+                image: '../resources/product1.jpg'
+            },
+            {
+                id: 2,
+                name: ' Wireless Door/Window Sensor',
+                category: 'sensor',
+                description: 'Wireless door/window sensor for advanced security monitoring and automation.',
+                price: '₹ 1050.00',
+                originalPrice: '₹ 1300.00',
+                rating: 4,
+                image: '../resources/product2.jpg'
+            },
+            {
+                id: 3,
+                name: 'PIR Wireless Motion Sensor',
+                category: 'sensor',
+                description: 'Reliable wireless PIR sensor for continuous security protection.',
+                price: '₹ 1550.00',
+                originalPrice: '₹ 1800.00',
+                rating: 4,
+                image: '../resources/product3.jpg'
+            },
+            {
+                id: 4,
+                name: 'Wireless Smoke Detector',
+                category: 'detector',
+                description: 'Professional smoke detection system with advanced algorithms.',
+                price: '₹ 1550.00',
+                originalPrice: '₹ 1850.00',
+                rating: 5,
+                image: '../resources/product4.jpg'
+            },
+            {
+                id: 5,
+                name: 'SOS Button',
+                category: 'camera',
+                description: 'Emergency SOS button for instant alerts and assistance.',
+                price: '₹ 700.00',
+                originalPrice: '₹ 900.00',
+                rating: 5,
+                image: '../resources/product5.jpg'
+            },
+            {
+                id: 6,
+                name: 'Wireless Panic Switch',
+                category: 'alarm',
+                description: 'Compact wireless panic switch for emergency situations.',
+                price: '₹ 1250.00',
+                originalPrice: '₹ 1400.00',
+                rating: 4,
+                image: '../resources/product6.jpg'
+            },
+            {
+                id: 7,
+                name: 'Wireless Shutter Sensor',
+                category: 'sensor',
+                description: 'Durable wireless shutter sensor for enhanced security.',
+                price: '₹ 1400.00',
+                originalPrice: '₹ 1600.00',
+                rating: 5,
+                image: '../resources/product7.jpg'
+            },
+            {
+                id: 8,
+                name: '400 DBM Loud Sounder',
+                category: 'camera',
+                description: 'Powerful 400 DBM loud sounder for effective alarm signaling.',
+                price: '₹ 1600.00',
+                originalPrice: '₹ 1800.00',
+                rating: 5,
+                image: '../resources/product8.jpg'
+            },
+            {
+                id: 9,
+                name: 'Wireless Alarm Siren',
+                category: 'control',
+                description: 'Wireless alarm siren for effective alert signaling.',
+                price: '₹ 1550.00',
+                originalPrice: '₹ 1800.00',
+                rating: 4,
+                image: '../resources/product9.jpg'
+            },
+            {
+                id: 10,
+                name: 'Beam Detector Sensor',
+                category: 'control',
+                description: 'Advanced beam detection sensor for enhanced security.',
+                price: '₹ 2100.00',
+                originalPrice: '₹ 2400.00',
+                rating: 4,
+                image: '../resources/product10.jpg'
+            },
+            {
+                id: 11,
+                name: 'Gas Detector Sensor',
+                category: 'control',
+                description: 'Advanced gas detection sensor for enhanced safety.',
+                price: '₹ 1600.00',
+                originalPrice: '₹ 1900.00',
+                rating: 4,
+                image: '../resources/product15.jpg'
+            },
+            {
+                id: 12,
+                name: 'Wireless Glass Break Sensor',
+                category: 'control',
+                description: 'Advanced wireless glass break detection sensor for enhanced security.',
+                price: '₹ 1200.00',
+                originalPrice: '₹ 1500.00',
+                rating: 4,
+                image: '../resources/product16.jpg'
+            },
+            {
+                id: 13,
+                name: 'Wireless Vibration Sensor',
+                category: 'control',
+                description: 'Advanced wireless vibration detection sensor for enhanced security.',
+                price: '₹ 1400.00',
+                originalPrice: '₹ 1700.00',
+                rating: 4,
+                image: '../resources/product17.jpg'
+            },
+            {
+                id: 14,
+                name: 'WIFI Shutter Sensor',
+                category: 'control',
+                description: 'Advanced WIFI shutter sensor for enhanced security.',
+                price: '₹ 2500.00',
+                originalPrice: '₹ 2800.00',
+                rating: 4,
+                image: '../resources/product18.jpg'
+            },
+            {
+                id: 15,
+                name: 'WIFI Siren Sounder',
+                category: 'control',
+                description: 'Advanced WIFI siren sounder for enhanced security.',
+                price: '₹ 2700.00',
+                originalPrice: '₹ 3000.00',
+                rating: 4,
+                image: '../resources/product19.jpg'
+            },
+            {
+                id: 16,
+                name: 'Smart Door Lock',
+                category: 'control',
+                description: 'Smart door lock with advanced security features.',
+                price: '₹ 8300.00',
+                originalPrice: '₹ 8600.00',
+                rating: 4,
+                image: '../resources/product11.jpg'
+            },
+            {
+                id: 17,
+                name: 'Socket Spy Camera',
+                category: 'control',
+                description: 'Discreet socket spy camera for covert surveillance.',
+                price: '₹ 3200.00',
+                originalPrice: '₹ 3500.00',
+                rating: 4,
+                image: '../resources/product12.jpg'
+            },
+            {
+                id: 18,
+                name: 'Micro Spy Camera',
+                category: 'control',
+                description: 'Compact micro spy camera for discreet surveillance.',
+                price: '₹ 3600.00',
+                originalPrice: '₹ 4000.00',
+                rating: 4,
+                image: '../resources/product13.jpg'
+            },
+            {
+                id: 19,
+                name: '4G SIM Based Solar PTZ Camera(Outdoor)',
+                category: 'control',
+                description: 'Robust 4G SIM based solar PTZ camera for outdoor surveillance.',
+                price: '₹ 6500.00',
+                originalPrice: '₹ 7000.00',
+                rating: 4,
+                image: '../resources/product14.jpg'
+            },
+            {
+                id: 20,
+                name: '20/32 Lithium Battery',
+                category: 'control',
+                description: 'High-capacity 20/32 lithium battery for long-lasting power supply.',
+                price: '₹ 200.00',
+                originalPrice: '₹ 240.00',
+                rating: 4,
+                image: '../resources/product20.jpg'
+            }
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const productsGrid = document.getElementById('productsGrid');
+        const noResults = document.getElementById('noResults');
+
+        function createStars(rating) {
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                stars += `<span class="${i < rating ? 'star' : ''}">★</span>`;
+            }
+            return stars;
+        }
+
+        function createProductCard(product) {
+            return `
+                <div class="product-card" data-product-id="${product.id}">
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <button class="wishlist-btn" onclick="toggleWishlist(event)">♡</button>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                    </div>
+                    <div class="product-footer">
+                        <div>
+                            <span class="product-price">${product.price}</span>
+                            <span class="product-price-original">${product.originalPrice}</span>
+                        </div>
+                        <div class="rating">
+                            ${createStars(product.rating)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterProducts(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            const filteredProducts = products.filter(product =>
+                product.name.toLowerCase().includes(term) ||
+                product.category.toLowerCase().includes(term) ||
+                product.description.toLowerCase().includes(term)
+            );
+
+            productsGrid.innerHTML = '';
+
+            if (filteredProducts.length === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+                filteredProducts.forEach(product => {
+                    productsGrid.innerHTML += createProductCard(product);
+                });
+            }
+        }
+
+        function toggleWishlist(event) {
+            event.stopPropagation();
+            const btn = event.target;
+            btn.classList.toggle('active');
+            btn.textContent = btn.classList.contains('active') ? '♥' : '♡';
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            filterProducts(e.target.value);
+        });
+
+        // Initialize with all products
+        filterProducts('');
+
+        // Menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+
+</html>

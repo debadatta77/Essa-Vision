@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESSA VISION</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(180deg, #f7f6f0 0%, #ffffff 100%);
+            color: #233240;
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            background-image: linear-gradient(135deg, #ffffe7, #ffffff);
+            border-radius: 50px;
+            margin: 1.5rem 2rem;
+            box-shadow: 0 6px 20px rgba(34, 50, 64, 0.06);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #133047;
+            letter-spacing: 0.6px;
+            z-index: 1002;
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #133047;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #133047;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1002;
+            position: relative;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: #133047;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            display: block;
+            pointer-events: none;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                margin: 1rem;
+                padding: 0.9rem 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 75%;
+                max-width: 350px;
+                background: linear-gradient(180deg, #ffffe7 0%, #fffef0 100%);
+                flex-direction: column;
+                padding: 6rem 2.5rem 3rem;
+                gap: 0;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                box-shadow: -6px 0 40px rgba(0, 0, 0, 0.2);
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid rgba(19, 48, 71, 0.08);
+            }
+
+            .nav-links a {
+                padding: 1.2rem 0;
+                display: block;
+                width: 100%;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.25rem 4rem;
+            gap: 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content-section {
+            flex: 1;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding: 2rem;
+        }
+
+        .content-section h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.12;
+            margin-bottom: 1rem;
+            color: #154a63;
+            letter-spacing: -0.4px;
+        }
+
+        .content-section p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #3f5866;
+            max-width: 34rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Visual Section */
+        .visual-section {
+            flex: 1;
+            position: relative;
+            height: 480px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(21, 74, 99, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .video-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(21, 74, 99, 0.25);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Service Section */
+        .service-section {
+            margin: 5rem 0;
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, #f9fafb 0%, #f0f4f8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #154a63;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .service-header p {
+            font-size: 1rem;
+            color: #3f5866;
+            opacity: 0.9;
+        }
+
+        .service-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 1;
+        }
+
+        .service-swiper {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            min-height: 600px;
+            /* Change from 520px to 600px */
+        }
+
+        .service-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateX(100px) scale(0.95);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .service-slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: all;
+        }
+
+        .service-image-wrapper {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .service-image {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            /* Change from 320px to 400px */
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .service-image:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 80px rgba(21, 74, 99, 0.2);
+        }
+
+        .service-img-1 {
+            background: linear-gradient(to bottom, #c4c4c6 0%, #c6c6c8 100%);
+            background-image: url(./resources/ser1.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-2 {
+            background: linear-gradient(135deg, #a5aea0 0%, #bfc8c0 100%);
+            background-image: url(./resources/ser4.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-3 {
+            background: linear-gradient(135deg, #d5e8f0 0%, #c0d9e5 100%);
+            background-image: url(./resources/ser5.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-4 {
+            background: linear-gradient(135deg, #e8d5e0 0%, #d4bfd1 100%);
+            background-image: url(./resources/ser2.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-5 {
+            background: linear-gradient(135deg, #d8e8d5 0%, #c4d9c1 100%);
+            background-image: url(./resources/ser6.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-6 {
+            background: linear-gradient(135deg, #dbe7ea 0%, #c9d6d9 100%);
+            background-image: url(./resources/ser7.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-7 {
+            background: linear-gradient(135deg, #f7d5d8 0%, #e6bfc3 100%);
+            background-image: url(./resources/ser8.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-8 {
+            background: linear-gradient(135deg, #d5e8f0 0%, #c0d9e5 100%);
+            background-image: url(./resources/ser9.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-9 {
+            background: linear-gradient(135deg, #e8d5e0 0%, #d4bfd1 100%);
+            background-image: url(./resources/ser10.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-10 {
+            background: linear-gradient(135deg, #d8e8d5 0%, #c4d9c1 100%);
+            background-image: url(./resources/ser3.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-img-11 {
+            background: linear-gradient(135deg, #dbe7ea 0%, #c9d6d9 100%);
+            background-image: url(./resources/ser11.jpg);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .service-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+        }
+
+        .service-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            filter: drop-shadow(0 8px 20px rgba(21, 74, 99, 0.2));
+        }
+
+        .service-icon-inner {
+            display: inline-block;
+            animation: floatY 3s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes floatY {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        .service-content {
+            text-align: center;
+            padding: 0 2rem;
+            min-height: 180px;
+            /* Add this line - ensures consistent content height */
+        }
+
+        .service-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #154a63;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .service-description {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #3f5866;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .service-nav {
+            background: linear-gradient(135deg, #ffffe7 0%, #ffffff 100%);
+            border: none;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #154a63;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: 0 6px 20px rgba(21, 74, 99, 0.15);
+        }
+
+        .service-nav:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(21, 74, 99, 0.25);
+        }
+
+        .service-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            background: rgba(21, 74, 99, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: #154a63;
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Product Section */
+        .product-section {
+            margin: 4rem 0 2rem;
+            padding: 4rem 2rem 3rem;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .product-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #154a63;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .product-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .product-card {
+            background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(20, 55, 78, 0.06);
+            border: 1px solid rgba(230, 235, 240, 0.9);
+            transition: all 0.35s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(20, 55, 78, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:nth-child(1) .product-image {
+            background: linear-gradient(135deg, #dbe7ea 0%, #c9d6d9 100%);
+            background-image: url(./resources/product1.jpg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .product-card:nth-child(2) .product-image {
+            background: linear-gradient(135deg, #e8d5e0 0%, #d4bfd1 100%);
+            background-image: url(./resources/product2.jpg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .product-card:nth-child(3) .product-image {
+            background: linear-gradient(135deg, #d5e8f0 0%, #c0d9e5 100%);
+            background-image: url(./resources/product3.jpg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .product-card:nth-child(4) .product-image {
+            background: linear-gradient(135deg, #d8e8d5 0%, #c4d9c1 100%);
+            background-image: url(./resources/product4.jpg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+
+
+        .product-image::after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.5rem;
+        }
+
+        .product-card:nth-child(1) .product-image::after {
+            content: '';
+        }
+
+        .product-card:nth-child(2) .product-image::after {
+            content: '';
+        }
+
+        .product-card:nth-child(3) .product-image::after {
+            content: '';
+        }
+
+        .product-card:nth-child(4) .product-image::after {
+            content: '';
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #154a63;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: #3f5866;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #154a63;
+        }
+
+        /* Contact Info Section */
+        .contact-info-section {
+            margin: 6rem 0;
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, #f9fafb 0%, #f0f4f8 100%);
+        }
+
+        .contact-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #154a63;
+            margin-bottom: 4rem;
+            letter-spacing: -0.3px;
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #fffde3 0%, #f9fbf6 100%);
+            border: 1px solid rgba(21, 74, 99, 0.1);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(21, 74, 99, 0.08);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(21, 74, 99, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #4a7c8c;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #114b52;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value:hover {
+            color: #0f4b53;
+        }
+
+        .view-more-container {
+            display: flex;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .view-more-btn {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #ffffe7 0%, #ffffff 100%);
+            color: #154a63;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(21, 74, 99, 0.25);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .view-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(21, 74, 99, 0.35);
+            gap: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #faf8f3;
+            border-top: 1px solid #e0d5c7;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-top {
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f4b53;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .footer-credit {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .footer-credit a {
+            color: #0f4b53;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-credit a:hover {
+            color: #114b52;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid #d0c5b9;
+            border-radius: 6px;
+            color: #4a7c8c;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .social-link:hover {
+            background-color: #0f4b53;
+            color: #fff;
+            border-color: #0f4b53;
+            transform: translateY(-2px);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background-color: #e0d5c7;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: #0f4b53;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #114b52;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+
+            .main-container {
+                padding: 2rem 3rem;
+                gap: 4rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+                padding: 2rem;
+                gap: 3rem;
+            }
+
+            .content-section {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+            }
+
+            .visual-section {
+                width: 100%;
+                height: auto;
+            }
+
+            .video-container {
+                max-width: 500px;
+                height: 350px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .contact-title {
+                font-size: 1.8rem;
+                margin-bottom: 3rem;
+            }
+
+            .service-nav {
+                display: none;
+            }
+
+            .contact-info-section {
+                padding: 3rem 1.2rem;
+            }
+
+            footer {
+                padding: 24px 16px;
+            }
+
+            .footer-brand {
+                font-size: 20px;
+            }
+
+            .footer-tagline {
+                font-size: 12px;
+            }
+
+            .social-link {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-copyright {
+                font-size: 11px;
+            }
+
+            .footer-links a {
+                font-size: 11px;
+            }
+
+            @media (max-width: 768px) {
+                .service-swiper {
+                    min-height: 550px;
+                    /* Add responsive height */
+                }
+
+                .service-image {
+                    height: 300px;
+                    /* Smaller on mobile */
+                }
+
+                .service-nav {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .content-section h1 {
+                    font-size: 1.5rem;
+                }
+
+                .product-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .contact-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .contact-card {
+                    padding: 1.8rem;
+                }
+
+                .contact-icon {
+                    font-size: 3rem;
+                }
+
+                .contact-value {
+                    font-size: 1rem;
+                }
+
+                footer {
+                    padding: 20px 12px;
+                }
+
+                .footer-brand {
+                    font-size: 18px;
+                }
+
+                .social-link {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 12px;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">ESSA VISION</div>
+
+        <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="./product/product.html">PRODUCT</a></li>
+            <li><a href="./services/services.html">SERVICE</a></li>
+            <li><a href="./about/about.html">CONTACT</a></li>
+            <!-- <li><a href="#about">ABOUT</a></li> -->
+        </ul>
+    </nav>
+
+    <div class="main-container" id="home">
+        <div class="content-section">
+            <h1>Your Security Is Our Responsibility.</h1>
+            <p>Discover top-of-the-line security and automation solutions designed to keep you safe and secure. At ESSA
+                VISION, we prioritize your peace of mind with innovative technology and unrivaled support. Explore our
+                range of products and experience unmatched reliability and protection.</p>
+        </div>
+
+        <div class="visual-section">
+            <div class="video-container">
+                <video autoplay loop muted webkit-playsinline>
+                    <source src="./resources/main video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Section -->
+    <div class="service-section" id="service">
+        <div class="service-header">
+            <h2>Our Services</h2>
+            <p>Premium security services tailored to your needs</p>
+        </div>
+
+        <div class="service-container">
+            <button type="button" class="service-nav service-prev" onclick="prevService()"
+                aria-label="Previous service">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <div class="service-swiper">
+                <div class="service-slide active">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-1">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">24/7 Security Monitoring</h3> -->
+                        <!-- <p class="service-description">Round-the-clock professional monitoring with instant response to
+                            any security breach. Our expert team ensures your property is protected at all times with
+                            advanced AI-powered threat detection.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-2">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Professional Installation</h3> -->
+                        <!-- <p class="service-description">Expert installation services by certified technicians. We ensure
+                            optimal placement and configuration of all security equipment for maximum coverage and
+                            efficiency.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-3">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Smart Alert System</h3> -->
+                        <!-- <p class="service-description">Instant notifications to your mobile device for any security
+                            events. Stay connected to your property from anywhere in the world with real-time updates
+                            and alerts.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-4">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Advanced Video Analytics</h3> -->
+                        <!-- <p class="service-description">AI-powered video analysis with intelligent threat detection.
+                            Real-time tracking and instant alerts for suspicious activities detected by our advanced
+                            algorithms.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-5">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Access Control Systems</h3> -->
+                        <!-- <p class="service-description">Biometric and RFID access control with detailed entry logs.
+                            Manage who enters and exits your property with complete control and accountability.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-6">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Data Encryption & Security</h3> -->
+                        <!-- <p class="service-description">Military-grade encryption for all data transmission and storage.
+                            Your security information is protected with the highest level of cybersecurity standards.
+                        </p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-7">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Real-time Analytics Dashboard</h3> -->
+                        <!-- <p class="service-description">Comprehensive dashboard with real-time monitoring data. Track all
+                            security events, system status, and performance metrics from a single interface.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-8">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Cloud Backup & Storage</h3> -->
+                        <!-- <p class="service-description">Secure cloud backup of all security footage and data. Access your
+                            recordings anytime, anywhere with automatic redundancy and disaster recovery.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-9">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">Mobile App Control</h3> -->
+                        <!-- <p class="service-description">Complete control of your security system from your smartphone.
+                            Arm/disarm, view live feeds, and receive alerts on the go with our intuitive mobile
+                            application.</p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-10">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">24/7 Customer Support</h3> -->
+                        <!-- <p class="service-description">Dedicated support team available round-the-clock for technical
+                            assistance. We're here to help with installation, troubleshooting, and system optimization.
+                        </p> -->
+                    </div>
+                </div>
+
+                <div class="service-slide">
+                    <div class="service-image-wrapper">
+                        <div class="service-image service-img-11">
+                            <div class="service-icon"><span class="service-icon-inner"></span></div>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <!-- <h3 class="service-title">System Customization & Integration</h3> -->
+                        <!-- <p class="service-description">Tailored solutions for your specific security needs. Seamless
+                            integration with existing systems and custom configurations for optimal performance.</p> -->
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="service-nav service-next" onclick="nextService()" aria-label="Next service">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <div class="service-indicators">
+            <span class="indicator active" onclick="goToService(0)"></span>
+            <span class="indicator" onclick="goToService(1)"></span>
+            <span class="indicator" onclick="goToService(2)"></span>
+            <span class="indicator" onclick="goToService(3)"></span>
+            <span class="indicator" onclick="goToService(4)"></span>
+            <span class="indicator" onclick="goToService(5)"></span>
+            <span class="indicator" onclick="goToService(6)"></span>
+            <span class="indicator" onclick="goToService(7)"></span>
+            <span class="indicator" onclick="goToService(8)"></span>
+            <span class="indicator" onclick="goToService(9)"></span>
+            <span class="indicator" onclick="goToService(10)"></span>
+        </div>
+    </div>
+
+    <!-- Product Section -->
+    <div class="product-section" id="product">
+        <div class="product-header">
+            <h2>Featured Security Solutions</h2>
+            <p>Explore our premium range of security products</p>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image"></div>
+                <div class="product-content">
+                    <h3 class="product-title">GSM With Security Alarm System Full Kit</h3>
+                    <p class="product-description">Comprehensive GSM alarm system with sensors and remote control.</p>
+                    <div class="product-price">₹ 13,000.00</div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Wireless Door/Window Sensor</h3>
+                    <p class="product-description">Wireless door/window sensor for advanced security monitoring and
+                        automation.
+                    </p>
+                    <div class="product-price">₹ 1050.00 </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"></div>
+                <div class="product-content">
+                    <h3 class="product-title">PIR Wireless Motion Sensor</h3>
+                    <p class="product-description">Reliable wireless PIR sensor for continuous security protection.
+                    </p>
+                    <div class="product-price">₹ 1550.00 </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image"></div>
+                <div class="product-content">
+                    <h3 class="product-title">Wireless Smoke Detector</h3>
+                    <p class="product-description">Professional smoke detection system with advanced algorithms.
+                    </p>
+                    <div class="product-price">₹ 1550.00 </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-more-container">
+            <a href="./product/product.html" class="view-more-btn">
+                View More
+                <span>›</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Contact Info Section -->
+    <div class="contact-info-section" id="contact">
+        <h2 class="contact-title">Get In Touch</h2>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📧</div>
+                <div class="contact-label">Email</div>
+                <a href="mailto:essavisioninfo@gmail.com" class="contact-value">essavisioninfo@gmail.com</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">📱</div>
+                <div class="contact-label">Phone</div>
+                <a href="#" class="contact-value">+91 79780 92525</a>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <div class="contact-label">WhatsApp</div>
+                <a href="https://wa.me/917978092525" class="contact-value" target="_blank" rel="noopener noreferrer">+91
+                    79780 92525</a>
+            </div>
+        </div>
+
+        <div class="view-more-container">
+            <a href="./about/about.html" class="view-more-btn">
+                Send Message
+                <span>›</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">ESSA VISION</div>
+                <p class="footer-tagline">Secure & smart solutions for home and business.</p>
+                <p class="footer-credit">Website by <a
+                        href="https://www.linkedin.com/in/debadatta-parida-4430a5276?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Debadatta</a>
+                    & <a
+                        href="https://www.linkedin.com/in/priyansu-sekhar-malana-9186b12a9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Priyansu</a>
+                </p>
+
+                <div class="social-links">
+                    <a href="mailto:essavisioninfo@gmail.com" class="social-link" title="Email">📧</a>
+                    <a href="https://wa.me/message/ZMBMBZANXCVLJ1" class="social-link" title="WhatsApp">💬</a>
+                    <a href="https://www.facebook.com/profile.php?id=61582689723146&mibextid=ZbWKwL" class="social-link"
+                        title="Facebook">📘</a>
+                    <a href="https://www.instagram.com/essavisioninf?igsh=MWJzcmk4dXRibmxzdg==" class="social-link"
+                        title="Instagram">📷</a>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2025 ESSA VISION. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const slides = Array.from(document.querySelectorAll('.service-slide'));
+            const indicators = Array.from(document.querySelectorAll('.indicator'));
+            const wrapper = document.querySelector('.service-swiper');
+            if (!slides.length || !wrapper) return;
+
+            let current = 0;
+            let autoTimer = null;
+            const AUTO_DELAY = 4500;
+            const SWIPE_THRESHOLD = 50;
+            let pointerDown = false;
+            let startX = 0;
+            let moved = 0;
+
+            function update() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === current));
+                indicators.forEach((ind, i) => ind.classList.toggle('active', i === current));
+            }
+
+            window.goToService = function (n) {
+                const idx = Math.max(0, Math.min(slides.length - 1, Number(n) || 0));
+                if (idx === current) return;
+                current = idx;
+                update();
+                resetAuto();
+            };
+
+            window.nextService = function () {
+                current = (current + 1) % slides.length;
+                update();
+                resetAuto();
+            };
+
+            window.prevService = function () {
+                current = (current - 1 + slides.length) % slides.length;
+                update();
+                resetAuto();
+            };
+
+            // indicator clicks (in case inline onclicks exist, keep them in sync)
+            indicators.forEach((ind, i) => ind.addEventListener('click', () => goToService(i)));
+
+            // Auto-advance
+            function startAuto() {
+                stopAuto();
+                autoTimer = setInterval(() => {
+                    current = (current + 1) % slides.length;
+                    update();
+                }, AUTO_DELAY);
+            }
+            function stopAuto() {
+                if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+            }
+            function resetAuto() { stopAuto(); startAuto(); }
+
+            // Pause on hover/focus
+            wrapper.addEventListener('pointerenter', stopAuto);
+            wrapper.addEventListener('pointerleave', startAuto);
+
+            // Swipe handling (pointer events)
+            wrapper.addEventListener('pointerdown', (e) => {
+                pointerDown = true;
+                startX = e.clientX;
+                moved = 0;
+                wrapper.setPointerCapture && wrapper.setPointerCapture(e.pointerId);
+                stopAuto();
+            });
+            wrapper.addEventListener('pointermove', (e) => {
+                if (!pointerDown) return;
+                moved = e.clientX - startX;
+            });
+            wrapper.addEventListener('pointerup', (e) => {
+                if (!pointerDown) return;
+                pointerDown = false;
+                const dx = moved;
+                if (dx > SWIPE_THRESHOLD) {
+                    prevService();
+                } else if (dx < -SWIPE_THRESHOLD) {
+                    nextService();
+                } else {
+                    // small move — keep current
+                }
+                startAuto();
+            });
+            wrapper.addEventListener('pointercancel', () => { pointerDown = false; startAuto(); });
+
+            // keyboard accessibility: left/right arrows
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') prevService();
+                if (e.key === 'ArrowRight') nextService();
+            });
+
+            // init
+            update();
+            startAuto();
+        })();
+    </script>
+
+    <script>
+        (function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            if (!menuToggle || !navLinks) return;
+
+            menuToggle.addEventListener('click', function () {
+                const expanded = menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+
+            // close menu when a nav link is clicked (for better UX on mobile)
+            navLinks.addEventListener('click', function (e) {
+                if (e.target && e.target.tagName === 'A') {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // close menu on escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>
